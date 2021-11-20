@@ -15,21 +15,43 @@ versionCategory1.innerText = "11";
 versionCategory2.innerText = "09";
 versionCategory3.innerText = "01";
 
-if (
-  button1.disabled === true &&
-  button2.disabled === true &&
-  button3.disabled === true
-) {
-  ///
-}
+check4Updates();
 
-button1.addEventListener("click", function () {
-  const currentVersion = Number(versionCategory1.innerText);
-  if (currentVersion === 14) {
-    button1.disabled = true;
-    return;
-  }
+console.log(button1.disabled);
+console.log(button2.disabled);
+console.log(button3.disabled);
+
+button1.addEventListener("click", (event) =>
+  clickHandler(event.target, versionCategory1)
+);
+
+button2.addEventListener("click", (event) =>
+  clickHandler(event.target, versionCategory2)
+);
+
+button3.addEventListener("click", (event) =>
+  clickHandler(event.target, versionCategory3)
+);
+
+function clickHandler(button, defaultVersion) {
+  const currentVersion = Number(defaultVersion.innerText);
+  button.disabled = true;
 
   let newVersion = currentVersion + 1;
-  versionCategory1.innerText = newVersion;
-});
+
+  newVersion > 9
+    ? (defaultVersion.innerText = newVersion)
+    : (defaultVersion.innerText = "0" + newVersion);
+
+  check4Updates();
+}
+
+function check4Updates() {
+  if (
+    button1.disabled === true &&
+    button2.disabled === true &&
+    button3.disabled === true
+  ) {
+    displayIfUpdatesAvailable.classList.add("hidden");
+  }
+}
